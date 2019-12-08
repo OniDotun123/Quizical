@@ -1,2 +1,2 @@
-FLASK_ENV=devlopment
+FLASK_ENV=development
 FLASK_APP=Quizzical
