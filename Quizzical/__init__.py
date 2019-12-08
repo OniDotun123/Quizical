@@ -4,9 +4,9 @@ from .commands import create_tables
 from .extensions import db, login_manager
 
 def create_app(config_file='settings.py'):
-  app = Flask(_name__)
+  app = Flask(__name__)
 
-  app.cofig.from_pyfile(config_file)
+  app.config.from_pyfile(config_file)
 
   db.init_app(app)
   
