@@ -46,11 +46,12 @@ def ask():
 
 
 
-
-
 @main.route('/answer/<int:question_id>', methods=['GET', 'POST'])
+@login_required
 def answer(question_id):
     question = Question.query.get_or_404(question_id)
+    if not current_user.expert: 
+        return redirect(url_for('main.index'))
 
     if request.method == 'POST':
         question.answer = request.form['answer']
@@ -60,17 +61,6 @@ def answer(question_id):
     
     context = {'question' : question}
     return render_template('answer.html', **context)
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -89,6 +79,8 @@ def question(question_id):
 @main.route('/unanswered')
 @login_required
 def unanswered():
+    if not current_user.expert: 
+        return redirect(url_for('main.index'))
     unanswered_questions = Question.query\
         .filter_by(expert_id=current_user.id)\
         .filter(Question.answer == None)\
@@ -109,6 +101,8 @@ def unanswered():
 @main.route('/users')
 def users():
     users = User.query.filter_by(admin=False).all()
+    if not current_user.admin: 
+        return redirect(url_for('main.index'))
 
 
     context = {'users' : users}
@@ -118,7 +112,10 @@ def users():
 
 
 @main.route('/promote/<int:user_id>')
+@login_required
 def promote(user_id):
+    if not current_user.admin: 
+        return redirect(url_for('main.index'))
     user = User.query.get_or_404(user_id)
 
     user.expert = True
