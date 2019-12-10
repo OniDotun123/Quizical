@@ -108,7 +108,16 @@ def unanswered():
 
 @main.route('/users')
 def users():
-    return render_template('/users.html')
+    users = User.query.filter_by(admin=False).all()
+
+
+    context = {'users' : users}
+    return render_template('/users.html', **context)
+
+
+
+
+
 
 @main.route('/home')
 def home():
