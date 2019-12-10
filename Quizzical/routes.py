@@ -20,21 +20,25 @@ def answer():
 
 @main.route('/login')
 def login():
-    render_template('/login.html')
+    return render_template('/login.html')
 
 @main.route('/question')
 def question():
-    render_template('/question.html')
+    return render_template('/question.html')
 
 @main.route('/register')
 def register():
-    render_template('/register.html')
+    return render_template('/register.html')
 
 @main.route('/unanswered')
 def unanswered():
-    render_template('/unanswered.html')
+    return render_template('/unanswered.html')
 
 @main.route('/users')
 def users():
-    render_template('/users.html')
+    return render_template('/users.html')
+
+@main.route('/home')
+def home():
+    return render_template('/home.html')
 
