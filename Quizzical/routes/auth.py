@@ -30,14 +30,7 @@ def login():
 
 
 
-
-
-
-
-
-
-
-
+#register logic below. Make sure to be aware of admin and expert settings. This determines the type of user that will be created. 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':

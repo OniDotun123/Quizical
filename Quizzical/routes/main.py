@@ -45,9 +45,30 @@ def ask():
 
 
 
-@main.route('/answer/<int:question_id>')
-def answer():
-    return render_template('/answer.html')
+@main.route('/answer/<int:question_id>', methods=['GET', 'POST'])
+def answer(question_id):
+    question = Question.query.get_or_404(question_id)
+
+    if request.method == 'POST':
+        question.answer = request.form['answer']
+        db.session.commit()
+
+        return redirect(url_for('main.unanswered'))
+    
+    context = {'question' : question}
+    return render_template('answer.html', **context)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @main.route('/question')
