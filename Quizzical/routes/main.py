@@ -11,7 +11,10 @@ main = Blueprint('main', __name__)
 
 @main.route('/')
 def index():
-    return render_template('home.html')
+    questions = Question.query.filter(Question.answer != None).all()
+
+    context = {'questions' : questions}
+    return render_template('home.html', **context)
 
 
 
