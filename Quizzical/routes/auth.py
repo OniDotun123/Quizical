@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request
 from werkzeug.security import check_password_hash
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from Quizzical.extensions import db
 from Quizzical.models import User
@@ -30,14 +30,7 @@ def login():
 
 
 
-
-
-
-
-
-
-
-
+#register logic below. Make sure to be aware of admin and expert settings. This determines the type of user that will be created. 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -47,11 +40,18 @@ def register():
         user = User(
             name=name, 
             unhashed_password=unhashed_password, 
-            admin=True, 
+            admin=False, 
             expert=False
         )
 
         db.session.add(user)
         db.session.commit()
+
         return redirect(url_for('auth.login'))
     return render_template('/register.html')
+
+
+@auth.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
