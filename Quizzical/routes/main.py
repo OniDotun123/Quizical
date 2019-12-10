@@ -117,9 +117,12 @@ def users():
 
 
 
+@main.route('/promote/<int:user_id>')
+def promote(user_id):
+    user = User.query.get_or_404(user_id)
 
+    user.expert = True
+    db.session.commit()
+    return redirect(url_for('main.users'))
 
-@main.route('/home')
-def home():
-    return render_template('/home.html')
 
