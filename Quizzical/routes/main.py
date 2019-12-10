@@ -45,7 +45,7 @@ def ask():
 
 
 
-@main.route('/answer')
+@main.route('/answer/<int:question_id>')
 def answer():
     return render_template('/answer.html')
 
@@ -55,9 +55,28 @@ def question():
     return render_template('/question.html')
 
 
+
+
+
 @main.route('/unanswered')
+@login_required
 def unanswered():
-    return render_template('/unanswered.html')
+    unanswered_questions = Question.query\
+        .filter_by(expert_id=current_user.id)\
+        .filter(Question.answer == None)\
+        .all()
+
+    context = {
+        'unanswered_questions' : unanswered_questions
+    }
+
+
+    return render_template('/unanswered.html', **context)
+    
+
+
+
+
 
 @main.route('/users')
 def users():
