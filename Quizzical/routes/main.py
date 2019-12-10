@@ -74,9 +74,13 @@ def answer(question_id):
 
 
 
-@main.route('/question')
-def question():
-    return render_template('/question.html')
+@main.route('/question/<int:question_id>')
+def question(question_id):
+    question = Question.query.get_or_404(question_id)
+
+    context = {'question' : question}
+    return render_template('/question.html', **context)
+
 
 
 
