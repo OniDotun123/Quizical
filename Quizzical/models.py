@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash
 from .extensions import db
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
   id = db.Column(db.Integer, primary_key=True)
   name = db.Column(db.String(50))
   password = db.Column(db.String(100))
@@ -27,12 +27,12 @@ class User(db.Model):
   )
 
   @property
-  def unhashed_pass(self):
+  def unhashed_password(self):
     raise AttributeError('Cannot view a password that is not hashed!!!')
 
-  @unhashed_pass.setter
-  def unhashed_pass(self, unhashed_pass):
-    self.password = generate_password_hash(unhashed_pass)
+  @unhashed_password.setter
+  def unhashed_password(self, unhashed_password):
+    self.password = generate_password_hash(unhashed_password)
 
 
 
