@@ -1,4 +1,8 @@
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
+
 from .extensions import db
+
 
 class User(db.Model):
   id = db.Column(db.Integer, primary_key=True)
@@ -21,6 +25,14 @@ class User(db.Model):
     backref='expert', 
     lazy=True
   )
+
+  @property
+  def unhashed_pass(self):
+    raise AttributeError('Cannot view a password that is not hashed!!!')
+
+  @unhashed_pass.setter
+  def unhashed_pass(self, unhashed_pass):
+    self.password = generate_password_hash(unhashed_pass)
 
 
 

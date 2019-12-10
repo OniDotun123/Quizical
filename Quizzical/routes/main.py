@@ -24,7 +24,6 @@ def question():
     return render_template('/question.html')
 
 
-
 @main.route('/unanswered')
 def unanswered():
     return render_template('/unanswered.html')
