@@ -20,10 +20,9 @@
             <div class="form-group">
               <label for="select" class="col-lg-2 control-label">Expert</label>
               <div class="col-lg-10">
-                <select class="form-control"  id="select">
+                <select class="form-control"  id="select" name="expert">
                   {% for expert in experts %}
                   <option value="{{ expert.id }}">{{ expert.name }}</option>
-                  <option> option 1</option>
                   {% endfor %}
                 </select>
               </div>
