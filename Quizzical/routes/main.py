@@ -1,7 +1,9 @@
 from flask import Blueprint, render_template
 
 from Quizzical.extensions import db
-from Quizzical.models import Question
+from Quizzical.models import Question, User
+
+
 
 main = Blueprint('main', __name__)
 
@@ -12,7 +14,12 @@ def index():
 
 @main.route('/ask')
 def ask():
-    return render_template('/ask.html')
+    experts = User.query.filter_by(expert=True).all()
+
+    context = {
+        'experts' : experts
+    }
+    return render_template('/ask.html', **context)
 
 @main.route('/answer')
 def answer():

@@ -47,11 +47,12 @@ def register():
         user = User(
             name=name, 
             unhashed_password=unhashed_password, 
-            admin=True, 
+            admin=False, 
             expert=False
         )
 
         db.session.add(user)
         db.session.commit()
+
         return redirect(url_for('auth.login'))
     return render_template('/register.html')
