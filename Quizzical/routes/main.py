@@ -72,10 +72,6 @@ def question(question_id):
     return render_template('/question.html', **context)
 
 
-
-
-
-
 @main.route('/unanswered')
 @login_required
 def unanswered():
@@ -95,9 +91,6 @@ def unanswered():
     
 
 
-
-
-
 @main.route('/users')
 def users():
     users = User.query.filter_by(admin=False).all()
@@ -107,8 +100,6 @@ def users():
 
     context = {'users' : users}
     return render_template('/users.html', **context)
-
-
 
 
 @main.route('/promote/<int:user_id>')
